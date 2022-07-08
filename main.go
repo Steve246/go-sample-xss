@@ -14,7 +14,7 @@ import (
 //pake gin
 //pake pake bluemonday go get github.com/microcosm-cc/bluemonday
 
-func newUser(user model.User) *model.User{
+func newUser(user model.User) model.User{
 
 
 	p := bluemonday.UGCPolicy()
@@ -22,7 +22,7 @@ func newUser(user model.User) *model.User{
 	user.FirstName = p.Sanitize(user.FirstName)
 	user.LastName = p.Sanitize(user.LastName)
 
-	return &user
+	return user
 }
 
 func main() {
@@ -41,20 +41,22 @@ func main() {
 
 	routerGroup.POST("/user", func(ctx *gin.Context){
 
-		var newUser model.User
+		var newUser1 model.User
 
 		
 
-		if err := ctx.ShouldBindJSON(&newUser); err != nil {
+		if err := ctx.ShouldBindJSON(&newUser1); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H {
 				"error": err.Error(),
 			})
 			return 
 		}
 
+		newUser2 := newUser(newUser1)
+
 		
 		
-		users = append(users, newUser)
+		users = append(users, newUser2)
 
 		ctx.JSON(http.StatusOK, gin.H {
 			"message": "Success",
