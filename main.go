@@ -7,9 +7,23 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 //CROSS SITE SCRIPTING
+//pake gin
+//pake pake bluemonday go get github.com/microcosm-cc/bluemonday
+
+func newUserS(user model.User) *model.User{
+
+
+	p := bluemonday.UGCPolicy()
+	user.Username = p.Sanitize(user.Username)
+	user.FirstName = p.Sanitize(user.FirstName)
+	user.LastName = p.Sanitize(user.LastName)
+
+	return &user
+}
 
 func main() {
 
@@ -29,6 +43,8 @@ func main() {
 
 		var newUser model.User
 
+		
+
 		if err := ctx.ShouldBindJSON(&newUser); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H {
 				"error": err.Error(),
@@ -36,6 +52,9 @@ func main() {
 			return 
 		}
 
+		
+
+		
 		users = append(users, newUser)
 
 		ctx.JSON(http.StatusOK, gin.H {
