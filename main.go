@@ -14,7 +14,7 @@ import (
 //pake gin
 //pake pake bluemonday go get github.com/microcosm-cc/bluemonday
 
-func newUserS(user model.User) *model.User{
+func newUser(user model.User) *model.User{
 
 
 	p := bluemonday.UGCPolicy()
@@ -53,7 +53,6 @@ func main() {
 		}
 
 		
-
 		
 		users = append(users, newUser)
 
