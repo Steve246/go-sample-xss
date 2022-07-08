@@ -15,8 +15,8 @@ func main() {
 
 	users := make([]model.User, 0)
 
-	apiHost := os.Getenv("API_HOST")
-	apiPort := os.Getenv("API_PORT")
+	apiHost := os.Getenv("API_HOST")  //localhost
+	apiPort := os.Getenv("API_PORT") // 8888
 
 	listenAddress := fmt.Sprintf("%s:%s", apiHost, apiPort)
 
