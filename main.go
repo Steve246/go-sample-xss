@@ -45,6 +45,18 @@ func main() {
 
 	})
 
+
+	routerGroup.GET("/user", func(ctx *gin.Context){
+
+
+		ctx.JSON(http.StatusOK, gin.H {
+			"message": "Success",
+			"data": users,
+		})
+
+
+	})
+
 	err := routerEngine.Run(listenAddress)
 
 	if err != nil {
